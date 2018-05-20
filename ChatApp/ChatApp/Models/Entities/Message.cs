@@ -17,5 +17,7 @@ namespace ChatApp.Models.Entities
         public string UserNameReceiver { get; set; }
         [BsonElement("dateSent")]
         public DateTime DateSent { get; set; }
+        [BsonElement("body")]
+        public string Body { get; set; }
     }
 }

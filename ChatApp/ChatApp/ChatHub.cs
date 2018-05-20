@@ -65,7 +65,7 @@ namespace ChatApp
                 // send to caller user
                 Clients.Caller.sendPrivateMessage(toUserId, fromUser.UserName, message);
 
-                messageRepo.Insert(new Models.Entities.Message { DateSent = DateTime.Now, UserNameReceiver = toUser.UserName, UserNameSender = fromUser.UserName });
+                messageRepo.Insert(new Models.Entities.Message { DateSent = DateTime.Now, UserNameReceiver = toUser.UserName, UserNameSender = fromUser.UserName,Body=message });
             }
 
         }

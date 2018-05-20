@@ -1,0 +1,11 @@
+﻿@model IEnumerable<ChatApp.Models.Entities.Message>
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+@foreach(var item in Model)
+{
+    @item.UserNameSender item.Body
+}

@@ -34,7 +34,7 @@
     <script src="~/signalr/hubs"></script>
 
     <script type="text/javascript">
-
+        var usersArray = [];
         $(function () {
 
             setScreen(false);
@@ -51,6 +51,11 @@
 
             });
 
+            $("#btnRandom").click(function () {
+                var item = usersArray[Math.floor(Math.random() * usersArray.length)];
+                if(item!=null)
+                    OpenPrivateChatWindow(item.chatHub, item.id, item.name);
+            });
         });
 
         function setScreen(isLogin) {
@@ -69,7 +74,7 @@
         }
 
         function registerEvents(chatHub) {
-
+            /*
             $("#btnStartChat").click(function () {
 
                 var name = $("#txtNickName").val();
@@ -81,7 +86,7 @@
                 }
 
             });
-
+            */
 
             $('#btnSendMsg').click(function () {
 
@@ -107,7 +112,8 @@
                 }
             });
 
-
+            var name = '@User.Identity.Name';
+            chatHub.server.connect(name);
         }
 
         function registerClientMethods(chatHub) {
@@ -147,7 +153,12 @@
             chatHub.client.onUserDisconnected = function (id, userName) {
 
                 $('#' + id).remove();
-
+                
+                for (var i = usersArray.length - 1; i >= 0; --i) {
+                    if (usersArray[i].id == id) {
+                        usersArray.splice(i, 1);
+                    }
+                }
                 var ctrId = 'private_' + id;
                 $('#' + ctrId).remove();
 
@@ -188,7 +199,8 @@
         }
 
         function AddUser(chatHub, id, name) {
-
+            var obj = { id: id, name: name, chatHub: chatHub };
+            usersArray.push(obj);
             var userId = $('#hdId').val();
 
             var code = "";
@@ -337,6 +349,7 @@
             <div class="messageBar">
                 <input class="textbox" type="text" id="txtMessage" />
                 <input id="btnSendMsg" type="button" value="Send" class="submitButton" />
+                <input id="btnRandom" type="button" value="Random" class="submitButton" />
             </div>
         </div>
 

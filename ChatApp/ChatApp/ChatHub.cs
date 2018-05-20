@@ -1,4 +1,5 @@
 ﻿using ChatApp.Models;
+using ChatApp.Repositories;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,8 @@ namespace ChatApp
 
         public void SendPrivateMessage(string toUserId, string message)
         {
+            UserRepository userRepo = new UserRepository();
+            MessageRepository messageRepo = new MessageRepository();
 
             string fromUserId = Context.ConnectionId;
 
@@ -60,7 +63,9 @@ namespace ChatApp
                 Clients.Client(toUserId).sendPrivateMessage(fromUserId, fromUser.UserName, message); 
 
                 // send to caller user
-                Clients.Caller.sendPrivateMessage(toUserId, fromUser.UserName, message); 
+                Clients.Caller.sendPrivateMessage(toUserId, fromUser.UserName, message);
+
+                messageRepo.Insert(new Models.Entities.Message { DateSent = DateTime.Now, UserNameReceiver = toUser.UserName, UserNameSender = fromUser.UserName });
             }
 
         }

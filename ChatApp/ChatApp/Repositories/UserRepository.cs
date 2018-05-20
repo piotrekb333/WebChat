@@ -35,7 +35,7 @@ namespace ChatApp.Repositories
             return result.DeletedCount != 0;
         }
 
-        public bool UpdateUser(ObjectId id, string udateFieldName, string updateFieldValue)
+        public bool Update(ObjectId id, string udateFieldName, string updateFieldValue)
         {
             var filter = Builders<User>.Filter.Eq("_id", id);
             var update = Builders<User>.Update.Set(udateFieldName, updateFieldValue);

@@ -32,5 +32,13 @@ namespace ChatApp.Controllers
             return View(all);
         }
 
+        public ActionResult RenderDetails(string userName)
+        {
+            var list1 = messageRepo.GetMessagesByField("userNameSender", User?.Identity.Name).ToList();
+            var list2 = messageRepo.GetMessagesByField("userNameReceiver", User?.Identity.Name).ToList();
+            var all = list1.Concat(list2).OrderBy(m => m.DateSent).ToList();
+            return PartialView("_historyDetails",all);
+        }
+
     }
 }

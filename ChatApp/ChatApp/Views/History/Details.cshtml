@@ -1,11 +1,72 @@
 ﻿@model IEnumerable<ChatApp.Models.Entities.Message>
 @{
-    ViewBag.Title = "Details";
-}
+    /**/
 
+    ViewBag.Title = "Details";
+
+}
+ @Styles.Render("~/Css/ChatDetails.css");
 <h2>Details</h2>
 
-@foreach(var item in Model)
+
+<div class="container">
+    <fieldset>
+        <legend>Test</legend>
+        <div class="control-group">
+            <label class="control-label">Datetime from</label>
+            <div class="controls input-append date form_datetime" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                <input size="16" id="date-from" type="text" value="" readonly>
+                <span class="add-on"><i class="icon-remove"></i></span>
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+            <input type="hidden" id="dtp_input1" value="" /><br />
+        </div>
+
+
+        <div class="control-group">
+            <label class="control-label">Datetime to</label>
+            <div class="controls input-append date form_datetime" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input2">
+                <input size="16" id="date-to" type="text" value="" readonly>
+                <span class="add-on"><i class="icon-remove"></i></span>
+                <span class="add-on"><i class="icon-th"></i></span>
+            </div>
+            <input type="hidden" id="dtp_input1" value="" /><br />
+        </div>
+
+
+
+
+    </fieldset>
+
+</div>
+
+@foreach (var item in Model)
 {
-    @item.UserNameSender item.Body
+
+<div class="container chat-container">
+    <p> @item.Body</p>
+    <p> @item.UserNameSender</p>
+    <span class="time-right">@item.DateSent.ToString()</span>
+</div>
+
+
 }
+
+
+
+<script>
+    $(document).ready(function () {
+        $('.form_datetime').datetimepicker({
+            format: 'dd/mm/yyyy HH:mm:ss',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            forceParse: 0,
+            showMeridian: 1
+        });
+    });
+
+
+</script>

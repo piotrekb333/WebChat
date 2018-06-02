@@ -29,15 +29,24 @@ namespace ChatApp.Controllers
             var list1 = messageRepo.GetMessagesByField("userNameSender", User?.Identity.Name).ToList();
             var list2 = messageRepo.GetMessagesByField("userNameReceiver", User?.Identity.Name).ToList();
             var all = list1.Concat(list2).OrderBy(m=>m.DateSent).ToList();
+            ViewBag.UserName = userName;
             return View(all);
         }
 
-        public ActionResult RenderDetails(string userName)
+        public ActionResult RenderDetails(string UserName,DateTime? DateFrom,DateTime? DateTo)
         {
             var list1 = messageRepo.GetMessagesByField("userNameSender", User?.Identity.Name).ToList();
             var list2 = messageRepo.GetMessagesByField("userNameReceiver", User?.Identity.Name).ToList();
             var all = list1.Concat(list2).OrderBy(m => m.DateSent).ToList();
-            return PartialView("_historyDetails",all);
+            if (DateFrom.HasValue)
+            {
+                all = all.Where(m => m.DateSent >= DateFrom).ToList();
+            }
+            if (DateTo.HasValue)
+            {
+                all = all.Where(m => m.DateSent <= DateTo).ToList();
+            }
+            return PartialView("_HistoryDetailsPartial", all);
         }
 
     }

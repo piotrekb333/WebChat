@@ -3,9 +3,9 @@
     /**/
 
     ViewBag.Title = "Details";
-
+    var username = ViewBag.UserName;
 }
- @Styles.Render("~/Css/ChatDetails.css");
+@Styles.Render("~/Css/ChatDetails.css");
 <h2>Details</h2>
 
 
@@ -34,27 +34,25 @@
         </div>
 
 
-
+        <div class="control-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Szukaj" id="search" class="btn btn-default" />
+            </div>
+        </div>
 
     </fieldset>
 
 </div>
 
-@foreach (var item in Model)
-{
 
-<div class="container chat-container">
-    <p> @item.Body</p>
-    <p> @item.UserNameSender</p>
-    <span class="time-right">@item.DateSent.ToString()</span>
+<div id="div-history-details">
+    @Html.Partial("_HistoryDetailsPartial", Model);
+
+
 </div>
 
-
-}
-
-
-
 <script>
+    var saveUserName = '@username';
     $(document).ready(function () {
         $('.form_datetime').datetimepicker({
             format: 'dd/mm/yyyy HH:mm:ss',
@@ -64,7 +62,30 @@
             todayHighlight: 1,
             startView: 2,
             forceParse: 0,
-            showMeridian: 1
+            showMeridian: 1,
+            clearBtn: true
+        });
+
+        $("#search").click(function () {
+                           $.ajax({
+                   type: "POST",
+                   url: '@Url.Action("RenderDetails","History")',
+                               data: JSON.stringify({
+                       UserName: saveUserName,
+                       DateFrom: $("#date-from").val(),
+                       DateTo: $("#date-to").val(),
+                   }),
+                   contentType: "application/json",
+                   success: function (response) {
+                       $("#div-history-details").html(response);
+                   },
+                   failure: function (response) {
+                       alert(response.responseText);
+                   },
+                   error: function (response) {
+                       alert(response.responseText);
+                   }
+               });
         });
     });
 

@@ -1,0 +1,14 @@
+﻿@model IEnumerable<ChatApp.Models.Entities.Message>
+
+
+@foreach (var item in Model)
+{
+
+    <div class="container chat-container">
+        <p> @item.Body</p>
+        <p> @item.UserNameSender</p>
+        <span class="time-right">@item.DateSent.ToString()</span>
+    </div>
+
+
+}

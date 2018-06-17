@@ -12,7 +12,9 @@ namespace ChatApp.Models
         public string Username { get; set; }
         [Required]
         public string Password { get; set; }
-        [Compare("Password", ErrorMessage = "Confirm password doesn't match, Type again !")]
+        [Compare("Password", ErrorMessage = "Hasła się różnią !")]
         public string ConfirmPassword { get; set; }
+        [EmailAddress]
+        public string Email { get; set; }
     }
 }

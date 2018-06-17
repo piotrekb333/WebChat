@@ -1,4 +1,5 @@
 ﻿using ChatApp.Models;
+using ChatApp.Models.Entities;
 using ChatApp.Repositories;
 using System;
 using System.Collections.Generic;
@@ -45,6 +46,26 @@ namespace ChatApp.Controllers
             return View();
         }
 
+        public ActionResult Edit()
+        {
+            UserRepository repo = new UserRepository();
+            var usr=repo.GetUsersByField("userName", User.Identity.Name)?.FirstOrDefault();
+            if (usr == null)
+                return HttpNotFound();
+            return View(usr);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(User model)
+        {
+
+            UserRepository repo = new UserRepository();
+            var usr = repo.GetUsersByField("userName", User.Identity.Name)?.FirstOrDefault();
+            if (usr == null)
+                return HttpNotFound();
+            repo.Update(usr.Id, "email", model.Email);
+            return View();
+        }
 
         public ActionResult Login()
         {

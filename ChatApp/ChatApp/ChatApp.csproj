@@ -424,6 +424,7 @@
     <Content Include="Views\History\Index.cshtml" />
     <Content Include="Views\History\Details.cshtml" />
     <Content Include="Views\Shared\_HistoryDetailsPartial.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

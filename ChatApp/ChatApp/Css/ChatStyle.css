@@ -140,11 +140,12 @@
 }
 
 
-.draggable
-{
+.draggable {
     position: absolute;
     border: #5f9482 solid 1px !important;
     width: 250px;
+    top: 40%;
+    left: 40%;
 }
 
     .draggable .header

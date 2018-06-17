@@ -1,0 +1,22 @@
+﻿@model ChatApp.Models.Stats
+@{
+    ViewBag.Title = "Stats";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Liczba wszystkich wiadomości</th>
+            <th scope="col">Liczba moich wiadomości</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.AllMessagesNumber</td>
+            <td>@Model.UserMessagesNumber</td>
+        </tr>
+
+    </tbody>
+</table>
+

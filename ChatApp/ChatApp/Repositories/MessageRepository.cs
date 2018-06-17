@@ -1,4 +1,5 @@
 ﻿using ChatApp.Domain;
+using ChatApp.Models;
 using ChatApp.Models.Entities;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -49,6 +50,17 @@ namespace ChatApp.Repositories
             var result = messagesCollection.Find(filter).ToList();
 
             return result;
+        }
+
+        public Stats GetStats(string username)
+        {
+            var filter = Builders<Message>.Filter.Eq("UserNameSender", username);
+            var result = messagesCollection.Find(filter).ToList().Count();
+            var result2 = messagesCollection.Count(new BsonDocument());
+            var toReturn = new Stats();
+            toReturn.AllMessagesNumber = result2;
+            toReturn.UserMessagesNumber = result;
+            return toReturn;
         }
     }
 }

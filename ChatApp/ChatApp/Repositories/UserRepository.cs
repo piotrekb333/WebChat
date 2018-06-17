@@ -1,4 +1,5 @@
 ﻿using ChatApp.Domain;
+using ChatApp.Models;
 using ChatApp.Models.Entities;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -52,5 +53,6 @@ namespace ChatApp.Repositories
 
             return result;
         }
+
     }
 }

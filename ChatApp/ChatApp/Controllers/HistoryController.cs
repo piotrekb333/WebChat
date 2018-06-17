@@ -49,5 +49,11 @@ namespace ChatApp.Controllers
             return PartialView("_HistoryDetailsPartial", all);
         }
 
+        public ActionResult Stats()
+        {
+            var result=messageRepo.GetStats(User.Identity.Name);
+            return View(result);
+        }
+
     }
 }

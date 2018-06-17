@@ -193,6 +193,7 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\MessageDetail.cs" />
     <Compile Include="Models\RegisterModel.cs" />
+    <Compile Include="Models\Stats.cs" />
     <Compile Include="Models\UserDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\MessageRepository.cs" />
@@ -425,6 +426,7 @@
     <Content Include="Views\History\Details.cshtml" />
     <Content Include="Views\Shared\_HistoryDetailsPartial.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\History\Stats.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

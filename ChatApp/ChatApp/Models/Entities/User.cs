@@ -17,5 +17,7 @@ namespace ChatApp.Models.Entities
         public string Password { get; set; }
         [BsonElement("registerDate")]
         public DateTime RegisterDate { get; set; }
+        [BsonElement("email")]
+        public string Email { get; set; }
     }
 }

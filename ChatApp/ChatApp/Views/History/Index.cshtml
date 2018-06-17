@@ -4,15 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+
 
 <table class="table">
     <tr>
         <th>
-            User
+            Użytkownik
         </th>
         <th>
-            Details
+            Szczegóły
         </th>
     </tr>
 
@@ -23,7 +23,7 @@
             @Html.DisplayFor(modelItem => item)
         </td>
         <td>
-            @Html.ActionLink("Details","Details",new {userName = item })
+            @Html.ActionLink("Pokaż","Details",new {userName = item })
         </td>
     </tr>
     }

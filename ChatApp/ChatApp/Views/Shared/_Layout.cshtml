@@ -32,6 +32,7 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Chat", "Index", "Chat")</li>
+                        <li>@Html.ActionLink("Historia", "Index", "History")</li>
                     }
                     else
                     {

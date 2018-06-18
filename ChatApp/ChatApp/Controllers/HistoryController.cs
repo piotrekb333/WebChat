@@ -32,7 +32,17 @@ namespace ChatApp.Controllers
             ViewBag.UserName = userName;
             return View(all);
         }
-
+        public ActionResult Delete(string userName)
+        {
+            var list1 = messageRepo.GetMessagesByField("userNameSender", userName).Where(m=>m.UserNameReceiver == User.Identity.Name);
+            var list2 = messageRepo.GetMessagesByField("userNameReceiver", userName).Where(m => m.UserNameSender == User.Identity.Name); ;
+            var all = list1.Concat(list2).OrderBy(m => m.DateSent).ToList();
+            all.ForEach(m =>
+            {
+                messageRepo.Delete(m.Id);
+            });
+            return RedirectToAction("Index");
+        }
         public ActionResult RenderDetails(string UserName,DateTime? DateFrom,DateTime? DateTo)
         {
             var list1 = messageRepo.GetMessagesByField("userNameSender", User?.Identity.Name).ToList();

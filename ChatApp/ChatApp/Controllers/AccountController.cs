@@ -28,12 +28,12 @@ namespace ChatApp.Controllers
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
-            
+
             UserRepository repo = new UserRepository();
-            var usr=repo.GetUsersByField("username", model.Username);
+            var usr = repo.GetUsersByField("username", model.Username);
             if (usr.Count > 0)
                 return View();
-            var res=repo.Insert(new Models.Entities.User { Password = Helper.GetHashString(model.Password), UserName = model.Username ,RegisterDate=DateTime.Now.ToUniversalTime()});
+            var res = repo.Insert(new Models.Entities.User { Password = Helper.GetHashString(model.Password), UserName = model.Username, RegisterDate = DateTime.Now.ToUniversalTime(), Email = model.Email });
             if (res)
             {
                 FormsAuthentication.SetAuthCookie(model.Username, false);
@@ -49,7 +49,7 @@ namespace ChatApp.Controllers
         public ActionResult Edit()
         {
             UserRepository repo = new UserRepository();
-            var usr=repo.GetUsersByField("userName", User.Identity.Name)?.FirstOrDefault();
+            var usr = repo.GetUsersByField("userName", User.Identity.Name)?.FirstOrDefault();
             if (usr == null)
                 return HttpNotFound();
             return View(usr);
@@ -84,7 +84,7 @@ namespace ChatApp.Controllers
             {
                 FormsAuthentication.SetAuthCookie(model.Username, false);
 
-                var authTicket = new FormsAuthenticationTicket(1, model.Username, DateTime.Now, DateTime.Now.AddMinutes(20), false,string.Empty);
+                var authTicket = new FormsAuthenticationTicket(1, model.Username, DateTime.Now, DateTime.Now.AddMinutes(20), false, string.Empty);
                 string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
                 var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                 HttpContext.Response.Cookies.Add(authCookie);
